@@ -19,3 +19,5 @@ async function createUsersTable(){
     console.log(result)
 }
 createUsersTable()
+
+export { client }

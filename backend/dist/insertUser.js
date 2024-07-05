@@ -9,25 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.client = void 0;
-const pg_1 = require("pg");
-const client = new pg_1.Client({
-    connectionString: "postgresql://Todo_owner:wlLYv8nBaT5U@ep-sparkling-tree-a7wtfikf.ap-southeast-2.aws.neon.tech/Todo?sslmode=require"
-});
-exports.client = client;
-function createUsersTable() {
+const index_1 = require("./index");
+function insertUser() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield client.connect();
-        const result = yield client.query(`
-        CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
-            username VARCHAR(50) UNIQUE NOT NULL,
-            email VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-        );
-    `);
-        console.log(result);
+        // await client.connect()
+        const insertQuery = `INSERT INTO users(username, email, password)
+        VALUES('prasad', 'prasadhp99@gmail.com', '@admin')`;
+        const res = yield index_1.client.query(insertQuery);
+        console.log(res);
     });
 }
-createUsersTable();
+insertUser();
