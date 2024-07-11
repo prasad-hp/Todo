@@ -19,15 +19,20 @@ router.use(express_1.default.json());
 const prisma = new client_1.PrismaClient();
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password, firstName, lastName } = req.body;
-    const user = yield prisma.user.create({
-        data: {
-            email,
-            password,
-            firstName,
-            lastName
-        }
-    });
-    console.log(user);
-    res.status(200).json(user);
+    try {
+        const user = yield prisma.user.create({
+            data: {
+                email,
+                password,
+                firstName,
+                lastName
+            }
+        });
+        console.log(user);
+        res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json({ error: "Error Creating User" });
+    }
 }));
 exports.default = router;
